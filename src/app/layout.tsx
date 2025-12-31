@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${manrope.variable} ${ibmPlexMono.variable} ${spaceGrotesk.variable} font-sans antialiased bg-asym-light dark:bg-asym-dark dark:text-asym-light`}>
+      <body className={`${manrope.variable} ${ibmPlexMono.variable} ${spaceGrotesk.variable} font-sans antialiased bg-asym-light dark:bg-asym-dark dark:text-asym-light`} suppressHydrationWarning>
         <Header />
         {children}
       </body>
