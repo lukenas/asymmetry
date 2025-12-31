@@ -35,34 +35,44 @@ export default function FieldNotes() {
   return (
     <div className="min-h-screen">
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-8 pt-32 pb-16">
-        {/* Page Title */}
-        <h1 className="font-display text-4xl sm:text-5xl tracking-wide mb-4">Field Notes</h1>
-        <p className="font-mono text-sm text-asym-dark/60 dark:text-asym-light/60 mb-16">
-          Thoughts on AI, product, and building things that matter.
-        </p>
+      <main className="max-w-5xl mx-auto px-8 pt-32 pb-24">
+        {/* Page Header */}
+        <div className="pb-8 mb-8">
+          <span className="font-mono text-xs text-asym-orange tracking-widest uppercase">Archive</span>
+          <h1 className="font-display text-5xl sm:text-7xl tracking-wide mt-2">Field Notes</h1>
+          <p className="font-mono text-sm text-asym-dark/50 dark:text-asym-light/50 mt-6 max-w-lg">
+            Thoughts on AI, product, and building things that matter.
+          </p>
+        </div>
 
-        {/* Posts */}
-        <div className="space-y-12">
+        {/* Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-asym-dark/10 dark:border-asym-light/10">
           {fieldNotes.map((post) => (
             <article
               key={post.id}
-              className="group cursor-pointer border-b border-asym-dark/10 dark:border-asym-light/10 pb-12"
+              className="group cursor-pointer border-b border-r border-asym-dark/10 dark:border-asym-light/10 p-8 hover:bg-asym-dark/[0.02] dark:hover:bg-asym-light/[0.02] transition-colors"
             >
-              <div className="flex items-center gap-4 mb-3">
-                <span className="font-mono text-xs text-asym-dark/60 dark:text-asym-light/60">
-                  {post.date}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
+                  {post.date.toUpperCase()}
                 </span>
-                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40">
+                <span className="w-1 h-1 rounded-full bg-asym-dark/20 dark:bg-asym-light/20" />
+                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
                   {post.readTime}
                 </span>
               </div>
-              <h2 className="font-display text-2xl tracking-wide mb-3 group-hover:text-asym-orange transition-colors">
+
+              <h2 className="font-display text-xl sm:text-2xl tracking-wide mb-4 group-hover:text-asym-orange transition-colors leading-tight">
                 {post.title}
               </h2>
-              <p className="font-sans text-asym-dark/70 dark:text-asym-light/70 leading-relaxed">
+
+              <p className="font-sans text-sm text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
                 {post.excerpt}
               </p>
+
+              <span className="inline-block mt-6 font-mono text-xs text-asym-orange opacity-0 group-hover:opacity-100 transition-opacity tracking-wide">
+                READ →
+              </span>
             </article>
           ))}
         </div>

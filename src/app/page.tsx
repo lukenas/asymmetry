@@ -37,7 +37,6 @@ const fieldNotes = [
 
 export default function Home() {
   const [scrollOpacity, setScrollOpacity] = useState(1);
-  const [fieldNotesOpacity, setFieldNotesOpacity] = useState(1);
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
 
@@ -105,87 +104,96 @@ export default function Home() {
           className="absolute bottom-8 left-0 right-0 transition-opacity duration-100"
           style={{ opacity: scrollOpacity }}
         >
-          <div className="mx-auto px-8 flex items-end justify-between relative">
+          <div className="mx-auto px-8 flex flex-col sm:flex-row items-center sm:items-end justify-between relative gap-8 sm:gap-0">
             {/* Left - Date and Time (mobile hidden, shown on sm+) */}
             <div className="hidden sm:block font-display text-sm tracking-wide text-asym-dark/60 dark:text-asym-light/60">
               <div>{currentDate}</div>
               <div>{currentTime}</div>
             </div>
 
-            {/* Right - Description and Read More CTA */}
-            <div className="hidden sm:flex flex-col items-end gap-0 max-w-xs text-right">
-              
-              <p className="font-display text-md tracking-wide text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
+            {/* Description - centered on mobile, right on desktop */}
+            <div className="flex flex-col items-center sm:items-end gap-0 max-w-xs text-center sm:text-right">
+              <p className="font-display text-sm sm:text-md tracking-wide text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
                 Insights on applied AI and product from builders in the trenches and those pushing the frontier.
               </p>
-              <div className="flex flex-col items-center text-asym-orange">
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="opacity-60"
-                >
-                  <path d="M12 5v14M5 12l7 7 7-7" />
-                </svg> */}
-                <span className="font-mono text-sm tracking-wide cursor-pointer">
-                  Discover More
-                </span>
-              </div>
             </div>
           </div>
 
-          {/* Mobile: Applied AI + Product centered below */}
-          {/* <div className="sm:hidden font-display text-xs tracking-wide text-center mt-8">
-            <span>APPLIED AI + PRODUCT</span>
-          </div> */}
+          {/* Centered Arrow */}
+          <div className="flex justify-center mt-6 sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2 sm:mt-0 text-asym-orange">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="opacity-60"
+            >
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+          </div>
         </div>
       </section>
 
       {/* Field Notes Section */}
-      <section className="max-w-4xl mx-auto px-8 pt-16 pb-24">
-        <h2 className="font-display text-4xl sm:text-5xl tracking-wide mb-4">Field Notes</h2>
-        <p className="font-mono text-sm text-asym-dark/60 dark:text-asym-light/60 mb-16">
-          Thoughts on AI, product, and building things that matter.
-        </p>
+      <section className="max-w-5xl mx-auto px-8 pt-24 pb-32">
+        {/* Section Header */}
+        <div className="flex items-baseline justify-between mb-8 pb-6">
+          <div>
+            <span className="font-mono text-xs text-asym-orange tracking-widest uppercase">Latest</span>
+            <h2 className="font-display text-5xl sm:text-6xl tracking-wide mt-2">Field Notes</h2>
+          </div>
+          <Link
+            href="/field-notes"
+            className="hidden sm:block font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-orange transition-colors tracking-wide"
+          >
+            VIEW ALL →
+          </Link>
+        </div>
 
-        {/* Posts */}
-        <div className="space-y-12">
+        {/* Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-asym-dark/10 dark:border-asym-light/10">
           {fieldNotes.map((post) => (
             <article
               key={post.id}
-              className="group cursor-pointer border-b border-asym-dark/10 dark:border-asym-light/10 pb-12"
+              className="group cursor-pointer border-b border-r border-asym-dark/10 dark:border-asym-light/10 p-8 hover:bg-asym-dark/[0.02] dark:hover:bg-asym-light/[0.02] transition-colors"
             >
-              <div className="flex items-center gap-4 mb-3">
-                <span className="font-mono text-xs text-asym-dark/60 dark:text-asym-light/60">
-                  {post.date}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
+                  {post.date.toUpperCase()}
                 </span>
-                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40">
+                <span className="w-1 h-1 rounded-full bg-asym-dark/20 dark:bg-asym-light/20" />
+                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
                   {post.readTime}
                 </span>
               </div>
-              <h3 className="font-display text-xl sm:text-2xl tracking-wide mb-3 group-hover:text-asym-orange transition-colors">
+
+              <h3 className="font-display text-xl sm:text-2xl tracking-wide mb-4 group-hover:text-asym-orange transition-colors leading-tight">
                 {post.title}
               </h3>
-              <p className="font-sans text-asym-dark/70 dark:text-asym-light/70 leading-relaxed">
+
+              <p className="font-sans text-sm text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
                 {post.excerpt}
               </p>
+
+              <span className="inline-block mt-6 font-mono text-xs text-asym-orange opacity-0 group-hover:opacity-100 transition-opacity tracking-wide">
+                READ →
+              </span>
             </article>
           ))}
         </div>
 
-        {/* View All Link */}
-        <div className="mt-16 text-center">
+        {/* Mobile View All Link */}
+        <div className="mt-20 text-center sm:hidden">
           <Link
             href="/field-notes"
-            className="font-mono text-sm text-asym-orange hover:underline tracking-wide"
+            className="font-mono text-xs text-asym-orange tracking-wide"
           >
-            View All Field Notes
+            VIEW ALL FIELD NOTES →
           </Link>
         </div>
       </section>

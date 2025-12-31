@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "FIELD NOTES", href: "/field-notes" },
@@ -12,6 +13,42 @@ const navItems = [
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentTime, setCurrentTime] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const hours = now.toLocaleString("en-US", {
+        timeZone: "America/New_York",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      const period = now.toLocaleString("en-US", {
+        timeZone: "America/New_York",
+        hour: "numeric",
+        hour12: true,
+      }).slice(-2).toUpperCase();
+      const timeString = hours.replace(/\s?(AM|PM)/i, ` ${period}`);
+      setCurrentTime(timeString);
+
+      const dateString = now.toLocaleDateString("en-US", {
+        timeZone: "America/New_York",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }).toUpperCase();
+      setCurrentDate(dateString);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -25,6 +62,8 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const showNav = isHomePage ? isScrolled : true;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-asym-light/80 dark:bg-asym-dark/80 backdrop-blur-sm">
@@ -52,7 +91,7 @@ export default function Header() {
         {/* Center - Navigation (absolutely positioned for true center) */}
         <nav
           className={`absolute left-1/2 -translate-x-1/2 hidden sm:flex items-center gap-8 transition-all duration-300 ${
-            isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+            showNav ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
         >
           {navItems.map((item) => (
@@ -66,11 +105,13 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Right side - Location/Time */}
+        {/* Right side - Location on desktop, Date/Time on mobile */}
         <div
-          className={`hidden sm:block font-display text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60 text-right transition-all duration-300`}
+          className={`font-display text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60 text-right transition-all duration-300`}
         >
-          <div>NEW YORK, NEW YORK</div>
+          <div className="hidden sm:block">NEW YORK, NEW YORK</div>
+          <div className="sm:hidden">{currentDate}</div>
+          <div className="sm:hidden">{currentTime}</div>
         </div>
       </div>
     </header>
