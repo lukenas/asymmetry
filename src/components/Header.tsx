@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { label: "FIELD NOTES", href: "/field-notes" },
   { label: "INTERVIEWS", href: "/interviews" },
-  { label: "TOOLING", href: "/sponsors" },
+  { label: "TOOLING", href: "/tooling" },
 ];
 
 export default function Header() {

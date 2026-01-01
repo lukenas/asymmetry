@@ -3,42 +3,29 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
+import Toast from "@/components/Toast";
 
-const fieldNotes = [
-  {
-    id: 1,
-    title: "Building AI Products That Actually Ship",
-    excerpt: "The gap between prototype and production is where most AI projects die. Here's how to bridge it.",
-    date: "Dec 28, 2025",
-    readTime: "5 min read",
-  },
-  {
-    id: 2,
-    title: "The Asymmetry of Information in Product Development",
-    excerpt: "Why the best product decisions come from understanding what you don't know.",
-    date: "Dec 20, 2025",
-    readTime: "8 min read",
-  },
-  {
-    id: 3,
-    title: "Designing for Human-AI Collaboration",
-    excerpt: "Moving beyond automation to create genuinely collaborative experiences.",
-    date: "Dec 15, 2025",
-    readTime: "6 min read",
-  },
-  {
-    id: 4,
-    title: "The Case for Simplicity in Complex Systems",
-    excerpt: "How constraints and simplicity lead to better products, not worse ones.",
-    date: "Dec 10, 2025",
-    readTime: "4 min read",
-  },
-];
+interface BeehiivPost {
+  id: string;
+  title: string;
+  subtitle?: string;
+  publish_date: number;
+  web_url: string;
+  word_count?: number;
+}
 
 export default function Home() {
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
+  const [posts, setPosts] = useState<BeehiivPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loadingText, setLoadingText] = useState("");
+  const [showLoader, setShowLoader] = useState(true);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
     const updateTime = () => {
@@ -74,6 +61,62 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // Fetch posts from Beehiiv
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("/api/beehiiv/posts");
+        if (response.ok) {
+          const data = await response.json();
+          // Beehiiv API returns posts in data.data array
+          console.log("POSTS: ", data)
+          if (data.data && Array.isArray(data.data)) {
+            setPosts(data.data.slice(0, 4)); // Get first 4 posts
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+        // Fade out loader after a brief delay
+        setTimeout(() => {
+          setShowLoader(false);
+        }, 500);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    // Cryptographic loading animation
+    const targetText = "ASYMMETRY";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    
+    if (!showLoader) return;
+
+    let iterations = 0;
+    const maxIterations = 20; // Number of cycles before revealing
+    
+    const interval = setInterval(() => {
+      if (iterations < maxIterations) {
+        // Generate random characters for all positions - all letters keep changing
+        const randomChars = Array.from({ length: targetText.length }, () => 
+          chars[Math.floor(Math.random() * chars.length)]
+        );
+        
+        setLoadingText(randomChars.join(""));
+        iterations++;
+      } else {
+        // After max iterations, reveal the actual text
+        clearInterval(interval);
+        setLoadingText(targetText);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [showLoader]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -88,6 +131,62 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitted(false);
+
+    try {
+      const response = await fetch("/api/beehiiv/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSubmitted(true);
+        setEmail("");
+        setToast({ 
+          message: "Thanks! Check your email to confirm.", 
+          type: "success" 
+        });
+      } else {
+        const error = await response.json();
+        console.error("Subscription error:", error);
+        setToast({ 
+          message: error.error || "Failed to subscribe. Please try again.", 
+          type: "error" 
+        });
+      }
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      setToast({ 
+        message: "Failed to subscribe. Please try again.", 
+        type: "error" 
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }).toUpperCase();
+  };
+
+  const getReadTime = (wordCount?: number) => {
+    if (!wordCount) return "5 min read";
+    const minutes = Math.ceil(wordCount / 200); // Average reading speed
+    return `${minutes} min read`;
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -96,7 +195,7 @@ export default function Home() {
           className="font-display text-5xl sm:text-7xl md:text-8xl tracking-wider transition-opacity duration-100"
           style={{ opacity: scrollOpacity }}
         >
-          ASYMMETRY
+          {showLoader && loadingText ? loadingText : "ASYMMETRY"}
         </h1>
 
         {/* Bottom - Read More and Applied AI + Product */}
@@ -156,36 +255,61 @@ export default function Home() {
         </div>
 
         {/* Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-asym-dark/10 dark:border-asym-light/10">
-          {fieldNotes.map((post) => (
-            <article
-              key={post.id}
-              className="group cursor-pointer border-b border-r border-asym-dark/10 dark:border-asym-light/10 p-8 hover:bg-asym-dark/[0.02] dark:hover:bg-asym-light/[0.02] transition-colors"
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
-                  {post.date.toUpperCase()}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-asym-dark/20 dark:bg-asym-light/20" />
-                <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
-                  {post.readTime}
-                </span>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-asym-dark/10 dark:border-asym-light/10">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="border-b border-r border-asym-dark/10 dark:border-asym-light/10 p-8"
+              >
+                <div className="animate-pulse">
+                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-24 mb-4" />
+                  <div className="h-6 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/4 mb-4" />
+                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full mb-2" />
+                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-5/6" />
+                </div>
               </div>
+            ))}
+          </div>
+        ) : posts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-asym-dark/10 dark:border-asym-light/10">
+            {posts.map((post) => (
+              <Link
+                key={post.id}
+                href={`/field-notes/${post.id}`}
+                className="group block border-b border-r border-asym-dark/10 dark:border-asym-light/10 p-8 hover:bg-asym-dark/[0.02] dark:hover:bg-asym-light/[0.02] transition-colors"
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
+                    {formatDate(post.publish_date)}
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-asym-dark/20 dark:bg-asym-light/20" />
+                  <span className="font-mono text-xs text-asym-dark/40 dark:text-asym-light/40 tracking-wide">
+                    {getReadTime(post.word_count)}
+                  </span>
+                </div>
 
-              <h3 className="font-display text-xl sm:text-2xl tracking-wide mb-4 group-hover:text-asym-orange transition-colors leading-tight">
-                {post.title}
-              </h3>
+                <h3 className="font-display text-xl sm:text-2xl tracking-wide mb-4 group-hover:text-asym-orange transition-colors leading-tight">
+                  {post.title}
+                </h3>
 
-              <p className="font-sans text-sm text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
-                {post.excerpt}
-              </p>
+                {post.subtitle && (
+                  <p className="font-sans text-sm text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
+                    {post.subtitle}
+                  </p>
+                )}
 
-              <span className="inline-block mt-6 font-mono text-xs text-asym-orange opacity-0 group-hover:opacity-100 transition-opacity tracking-wide">
-                READ →
-              </span>
-            </article>
-          ))}
-        </div>
+                <span className="inline-block mt-6 font-mono text-xs text-asym-orange opacity-0 group-hover:opacity-100 transition-opacity tracking-wide">
+                  READ →
+                </span>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 text-asym-dark/50 dark:text-asym-light/50">
+            <p className="font-sans">No posts available at the moment.</p>
+          </div>
+        )}
 
         {/* Mobile View All Link */}
         <div className="mt-20 text-center sm:hidden">
@@ -198,7 +322,63 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="max-w-2xl mx-auto px-8">
+          <div className="relative p-12">
+            {/* Corner borders only */}
+            <div className="absolute top-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute top-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute bottom-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute bottom-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute top-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute top-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute bottom-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
+            <div className="absolute bottom-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
+            
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-2 rounded-full bg-asym-orange" />
+                <p className="font-display text-lg sm:text-xl tracking-wide text-asym-dark/70 dark:text-asym-light/70">
+                  Join the newsletter
+                </p>
+              </div>
+              <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50">
+                Weekly insights on applied AI and product from builders in the trenches.
+              </p>
+            </div>
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="flex-1 px-4 py-3 bg-transparent border border-asym-dark/20 dark:border-asym-light/20 rounded-none font-mono text-sm tracking-wide text-asym-dark dark:text-asym-light placeholder:text-asym-dark/40 dark:placeholder:text-asym-light/40 focus:outline-none focus:border-asym-dark/40 dark:focus:border-asym-light/40 transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="px-6 py-3 bg-asym-dark cursor-pointer dark:bg-asym-light text-asym-light dark:text-asym-dark font-mono text-sm tracking-wide hover:bg-asym-dark/90 dark:hover:bg-asym-light/90 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? "JOINING..." : "JOIN"}
+                </button>
+              </form>
+          </div>
+        </div>
+      </section>
+
       <Footer />
+
+      {/* Toast Notification */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          isVisible={!!toast}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }
