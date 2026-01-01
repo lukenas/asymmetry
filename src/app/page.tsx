@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Toast from "@/components/Toast";
+import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 
 interface BeehiivPost {
   id: string;
@@ -20,9 +21,6 @@ export default function Home() {
   const [currentDate, setCurrentDate] = useState("");
   const [posts, setPosts] = useState<BeehiivPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [showLoader, setShowLoader] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
@@ -70,7 +68,11 @@ export default function Home() {
           // Beehiiv API returns posts in data.data array
           console.log("POSTS: ", data)
           if (data.data && Array.isArray(data.data)) {
-            setPosts(data.data.slice(0, 4)); // Get first 4 posts
+            // Sort by publish_date descending (newest first), then take first 4
+            const sortedPosts = [...data.data].sort((a, b) => 
+              (b.publish_date || 0) - (a.publish_date || 0)
+            );
+            setPosts(sortedPosts.slice(0, 4));
           }
         }
       } catch (error) {
@@ -131,46 +133,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setSubmitted(false);
-
-    try {
-      const response = await fetch("/api/beehiiv/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSubmitted(true);
-        setEmail("");
-        setToast({ 
-          message: "Thanks! Check your email to confirm.", 
-          type: "success" 
-        });
-      } else {
-        const error = await response.json();
-        console.error("Subscription error:", error);
-        setToast({ 
-          message: error.error || "Failed to subscribe. Please try again.", 
-          type: "error" 
-        });
-      }
-    } catch (error) {
-      console.error("Error subscribing:", error);
-      setToast({ 
-        message: "Failed to subscribe. Please try again.", 
-        type: "error" 
-      });
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
@@ -323,50 +285,10 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16">
-        <div className="max-w-2xl mx-auto px-8">
-          <div className="relative p-12">
-            {/* Corner borders only */}
-            <div className="absolute top-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute top-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute top-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute top-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-2 h-2 rounded-full bg-asym-orange" />
-                <p className="font-display text-lg sm:text-xl tracking-wide text-asym-dark/70 dark:text-asym-light/70">
-                  Join the newsletter
-                </p>
-              </div>
-              <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50">
-                Weekly insights on applied AI and product from builders in the trenches.
-              </p>
-            </div>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  required
-                  className="flex-1 px-4 py-3 bg-transparent border border-asym-dark/20 dark:border-asym-light/20 rounded-none font-mono text-sm tracking-wide text-asym-dark dark:text-asym-light placeholder:text-asym-dark/40 dark:placeholder:text-asym-light/40 focus:outline-none focus:border-asym-dark/40 dark:focus:border-asym-light/40 transition-colors"
-                />
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="px-6 py-3 bg-asym-dark cursor-pointer dark:bg-asym-light text-asym-light dark:text-asym-dark font-mono text-sm tracking-wide hover:bg-asym-dark/90 dark:hover:bg-asym-light/90 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {submitting ? "JOINING..." : "JOIN"}
-                </button>
-              </form>
-          </div>
-        </div>
-      </section>
+      <NewsletterSubscribe
+        onSuccess={(message) => setToast({ message, type: "success" })}
+        onError={(message) => setToast({ message, type: "error" })}
+      />
 
       <Footer />
 

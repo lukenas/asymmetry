@@ -24,7 +24,11 @@ export default function FieldNotes() {
         if (response.ok) {
           const data = await response.json();
           if (data.data && Array.isArray(data.data)) {
-            setPosts(data.data);
+            // Sort by publish_date descending (newest first)
+            const sortedPosts = [...data.data].sort((a, b) => 
+              (b.publish_date || 0) - (a.publish_date || 0)
+            );
+            setPosts(sortedPosts);
           }
         }
       } catch (error) {
