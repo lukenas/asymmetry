@@ -90,30 +90,45 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // Cryptographic loading animation
+    // Enhanced cryptographic loading animation - all characters change together
     const targetText = "ASYMMETRY";
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Only letters
     
     if (!showLoader) return;
 
-    let iterations = 0;
-    const maxIterations = 20; // Number of cycles before revealing
+    let frame = 0;
+    const maxFrames = 12; // Shorter animation
     
     const interval = setInterval(() => {
-      if (iterations < maxIterations) {
-        // Generate random characters for all positions - all letters keep changing
-        const randomChars = Array.from({ length: targetText.length }, () => 
-          chars[Math.floor(Math.random() * chars.length)]
-        );
+      frame++;
+      
+      if (frame < maxFrames) {
+        // All characters change randomly, with increasing chance of showing target character
+        const progress = frame / maxFrames;
+        const displayText = targetText.split("").map((char) => {
+          const targetCharCode = char.charCodeAt(0);
+          
+          // As we progress, show characters closer to the target
+          if (progress > 0.6 && Math.random() < (progress - 0.6) * 2.5) {
+            // Show a character close to the target
+            const offset = Math.floor(Math.random() * 4) - 1; // -1 to +2 offset
+            const nearbyChar = String.fromCharCode(
+              Math.max(65, Math.min(90, targetCharCode + offset))
+            );
+            return nearbyChar;
+          }
+          
+          // Otherwise use completely random letter
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("");
         
-        setLoadingText(randomChars.join(""));
-        iterations++;
+        setLoadingText(displayText);
       } else {
-        // After max iterations, reveal the actual text
+        // Reveal all characters at once
         clearInterval(interval);
         setLoadingText(targetText);
       }
-    }, 100);
+    }, 50); // Faster frame rate for shorter animation
 
     return () => clearInterval(interval);
   }, [showLoader]);
