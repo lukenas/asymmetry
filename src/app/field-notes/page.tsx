@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
+import NewsletterSubscribe from "@/components/NewsletterSubscribe";
+import Toast from "@/components/Toast";
 
 interface BeehiivPost {
   id: string;
@@ -16,6 +18,7 @@ interface BeehiivPost {
 export default function FieldNotes() {
   const [posts, setPosts] = useState<BeehiivPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -126,7 +129,23 @@ export default function FieldNotes() {
         )}
       </main>
 
+      {/* CTA Section */}
+      <NewsletterSubscribe
+        onSuccess={(message) => setToast({ message, type: "success" })}
+        onError={(message) => setToast({ message, type: "error" })}
+      />
+
       <Footer />
+
+      {/* Toast Notification */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          isVisible={!!toast}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }

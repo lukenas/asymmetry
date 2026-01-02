@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import { useParams } from "next/navigation";
+import NewsletterSubscribe from "@/components/NewsletterSubscribe";
+import Toast from "@/components/Toast";
 
 interface BeehiivPost {
   id: string;
@@ -44,6 +46,7 @@ export default function PostPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [contentNodes, setContentNodes] = useState<ContentNode[]>([]);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -467,7 +470,23 @@ export default function PostPage() {
         </article>
       </main>
 
+      {/* CTA Section */}
+      <NewsletterSubscribe
+        onSuccess={(message) => setToast({ message, type: "success" })}
+        onError={(message) => setToast({ message, type: "error" })}
+      />
+
       <Footer />
+
+      {/* Toast Notification */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          isVisible={!!toast}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }
