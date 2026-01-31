@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-asym-light: #F3F3EF;
+  --color-asym-light: #FFFFF6;
   --color-asym-dark: #2E2D2B;
   --color-asym-orange: #FD5102;
   --font-sans: var(--font-manrope);

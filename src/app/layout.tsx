@@ -21,7 +21,30 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Asymmetry",
-  description: "Applied AI + Product",
+  description: "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
+  icons: {
+    icon: "/asym-dark-logo.png",
+    apple: "/asym-dark-logo.png",
+  },
+  openGraph: {
+    title: "Asymmetry",
+    description: "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
+    images: [
+      {
+        url: "/asym-dark-meta.png",
+        width: 1200,
+        height: 630,
+        alt: "Asymmetry",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Asymmetry",
+    description: "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
+    images: ["/asym-dark-meta.png"],
+  },
 };
 
 export default function RootLayout({

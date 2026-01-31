@@ -71,7 +71,7 @@ export default function Header() {
         {/* Left - Logo */}
         <Link href="/">
           <Image
-            src="/logo.png"
+            src="/asym-black-logo.png"
             alt="Logo"
             width={32}
             height={32}
@@ -79,7 +79,7 @@ export default function Header() {
             className="dark:hidden"
           />
           <Image
-            src="/logo-dark.png"
+            src="/asym-white-logo.png"
             alt="Logo"
             width={32}
             height={32}

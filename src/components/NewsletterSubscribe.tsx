@@ -58,7 +58,7 @@ export default function NewsletterSubscribe({ onSuccess, onError }: NewsletterSu
             <div className="flex items-center gap-3 mb-4">
               <div className="w-2 h-2 rounded-full bg-asym-orange" />
               <p className="font-display text-lg sm:text-xl tracking-wide text-asym-dark/70 dark:text-asym-light/70">
-                Join the newsletter
+                Join the community
               </p>
             </div>
             <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50">
