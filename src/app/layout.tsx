@@ -20,15 +20,19 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || 
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+  ),
   title: "Asymmetry",
-  description: "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
+  description: "Insights on applied AI and company building from in the trenches and those pushing the frontier.",
   icons: {
     icon: "/asym-dark-logo.png",
     apple: "/asym-dark-logo.png",
   },
   openGraph: {
     title: "Asymmetry",
-    description: "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
+    description: "Insights on applied AI and company building from in the trenches and those pushing the frontier.",
     images: [
       {
         url: "/asym-dark-meta.png",

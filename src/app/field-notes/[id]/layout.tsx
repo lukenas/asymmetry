@@ -68,16 +68,6 @@ export async function generateMetadata({
     ? post.thumbnail // Beehiiv thumbnails are already absolute URLs
     : `${baseUrl}/asym-dark-meta.png`;
   
-  // Log metadata for debugging (only in development)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('📄 Generated metadata for post:', {
-      id,
-      title,
-      description: description.substring(0, 50) + '...',
-      image,
-    });
-  }
-  
   return {
     title,
     description,
