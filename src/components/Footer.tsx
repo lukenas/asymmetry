@@ -23,10 +23,15 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-asym-dark/10 dark:border-asym-light/10">
-      <div className="mx-auto px-8 py-8 flex items-center justify-between">
-        <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50">
-          ASYMMETRY
-        </span>
+      <div className="mx-auto px-8 py-4 flex items-center justify-between">
+        <div className="flex gap-x-2">
+          <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50">
+            ASYMMETRY
+          </span>
+          <a className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50" href="https://www.lukenascimento.org">
+            by LUKE NASCIMENTO
+          </a>
+        </div>
         <button
           onClick={toggleTheme}
           className="flex items-center gap-2 text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-orange transition-colors cursor-pointer"

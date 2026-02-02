@@ -62,7 +62,7 @@ export default function NewsletterSubscribe({ onSuccess, onError }: NewsletterSu
               </p>
             </div>
             <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50">
-              Weekly insights on applied AI and product from builders in the trenches.
+              Weekly insights on applied AI and company building from in the trenches.
             </p>
           </div>
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">

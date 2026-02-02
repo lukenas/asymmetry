@@ -98,7 +98,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-mono text-sm tracking-wide text-asym-dark dark:text-asym-light hover:text-asym-orange transition-colors"
+              className="font-display text-sm tracking-wide text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-orange transition-colors"
             >
               {item.label}
             </Link>
@@ -107,7 +107,7 @@ export default function Header() {
 
         {/* Right side - Location on desktop, Date/Time on mobile */}
         <div
-          className={`font-display text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60 text-right transition-all duration-300`}
+          className={`font-mono text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60 text-right transition-all duration-300`}
         >
           <div className="hidden sm:block">NEW YORK, NEW YORK</div>
           <div className="sm:hidden">{currentDate}</div>

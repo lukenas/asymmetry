@@ -182,15 +182,15 @@ export default function Home() {
         >
           <div className="mx-auto px-8 flex flex-col sm:flex-row items-center sm:items-end justify-between relative gap-8 sm:gap-0">
             {/* Left - Date and Time (mobile hidden, shown on sm+) */}
-            <div className="hidden sm:block font-display text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60">
+            <div className="hidden sm:block font-mono text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60">
               <div>{currentDate}</div>
               <div>{currentTime}</div>
             </div>
 
             {/* Description - centered on mobile, right on desktop */}
             <div className="flex flex-col items-center sm:items-end gap-0 max-w-xs text-center sm:text-right">
-              <p className="font-display text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
-                Insights on applied AI and product from builders in the trenches and those pushing the frontier.
+              <p className="font-display text-md tracking-wide text-asym-dark/60 dark:text-asym-light/60 leading-relaxed">
+                Insights on applied AI and company building from in the trenches and those pushing the frontier.
               </p>
             </div>
           </div>
