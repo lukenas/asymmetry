@@ -1,22 +1,21 @@
 "use client";
 
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 const navItems = [
-  { label: "FIELD NOTES", href: "/field-notes" },
+  { label: "WRITING", href: "/field-notes" },
   { label: "INTERVIEWS", href: "/interviews" },
-  { label: "TOOLING", href: "/tooling" },
+  // { label: "TOOLING", href: "/tooling" },
 ];
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateTime = () => {
@@ -50,24 +49,22 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+    if (!mobileMenuOpen) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const el = mobileMenuRef.current;
+      if (el && !el.contains(e.target as Node)) setMobileMenuOpen(false);
     };
-    window.addEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside, { passive: true });
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, []);
-
-  const showNav = isHomePage ? isScrolled : true;
+  }, [mobileMenuOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-asym-light/80 dark:bg-asym-dark/80 backdrop-blur-sm">
-      <div className="mx-auto px-8 py-6 flex items-center justify-between relative">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-asym-light/90 dark:bg-asym-dark/90 backdrop-blur-sm">
+      <div className="relative w-full px-8 py-6 flex items-center justify-between">
         {/* Left - Logo */}
         <Link href="/">
           <Image
@@ -88,30 +85,53 @@ export default function Header() {
           />
         </Link>
 
-        {/* Center - Navigation (absolutely positioned for true center) */}
-        <nav
-          className={`absolute left-1/2 -translate-x-1/2 hidden sm:flex items-center gap-8 transition-all duration-300 ${
-            showNav ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
-          }`}
-        >
+        {/* Center - Navigation (desktop only) */}
+        <nav className="absolute left-1/2 -translate-x-1/2 hidden sm:flex items-center gap-8">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="font-display text-sm tracking-wide text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-orange transition-colors"
+              className="font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-dark dark:hover:text-asym-light transition-colors"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        {/* Right side - Location on desktop, Date/Time on mobile */}
-        <div
-          className={`font-mono text-xs tracking-wide text-asym-dark/60 dark:text-asym-light/60 text-right transition-all duration-300`}
-        >
+        {/* Right - Location on desktop, hamburger on mobile */}
+        <div ref={mobileMenuRef} className="font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80 text-right flex items-center relative">
           <div className="hidden sm:block">NEW YORK, NEW YORK</div>
-          <div className="sm:hidden">{currentDate}</div>
-          <div className="sm:hidden">{currentTime}</div>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className={`sm:hidden p-2 -m-2 rounded-md touch-manipulation text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-dark dark:hover:text-asym-light transition-colors ${mobileMenuOpen ? "bg-asym-dark/5 dark:bg-asym-light/5" : ""}`}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            <HamburgerMenuIcon className="w-5 h-5" aria-hidden />
+          </button>
+
+          {/* Mobile menu popout — same rounding/colors as CTA input */}
+          {mobileMenuOpen && (
+          <div
+            className="sm:hidden text-left absolute -right-2 top-full mt-4 z-[100] rounded-[10px] bg-asym-dark/5 dark:bg-asym-light/5 text-asym-dark dark:text-asym-light py-4 px-5 min-w-[100px]"
+            role="dialog"
+            aria-label="Menu"
+          >
+            <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-dark dark:hover:text-asym-light transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          )}
         </div>
       </div>
     </header>

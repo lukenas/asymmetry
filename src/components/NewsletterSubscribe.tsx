@@ -41,47 +41,51 @@ export default function NewsletterSubscribe({ onSuccess, onError }: NewsletterSu
   };
 
   return (
-    <section className="py-16">
-      <div className="max-w-2xl mx-auto px-8">
-        <div className="relative p-12">
-          {/* Corner borders only */}
-          <div className="absolute top-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute top-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute bottom-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute bottom-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute top-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute top-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute bottom-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-          <div className="absolute bottom-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-          
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-asym-orange" />
-              <p className="font-display text-lg sm:text-xl tracking-wide text-asym-dark/70 dark:text-asym-light/70">
-                Join the community
-              </p>
-            </div>
-            <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50">
-              Weekly insights on applied AI and company building from in the trenches.
+    <section className="py-24 sm:py-32">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+          <div>
+            <p className="font-display text-2xl sm:text-3xl tracking-tight text-asym-dark dark:text-asym-light">
+              Follow Along
+            </p>
+            <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50 mt-3 max-w-md">
+              Occasional notes. No schedule.
             </p>
           </div>
-          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-              className="flex-1 px-4 py-3 bg-transparent border border-asym-dark/20 dark:border-asym-light/20 rounded-none font-mono text-sm tracking-wide text-asym-dark dark:text-asym-light placeholder:text-asym-dark/40 dark:placeholder:text-asym-light/40 focus:outline-none focus:border-asym-dark/40 dark:focus:border-asym-light/40 transition-colors"
-            />
-            <button
-              type="submit"
-              disabled={submitting}
-              className="px-6 py-3 bg-asym-dark cursor-pointer dark:bg-asym-light text-asym-light dark:text-asym-dark font-mono text-sm tracking-wide hover:bg-asym-dark/90 dark:hover:bg-asym-light/90 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {submitting ? "JOINING..." : "JOIN"}
-            </button>
-          </form>
+          <div className="relative">
+            <div className="w-full h-[40px] min-w-[194px]">
+              <form onSubmit={handleSubscribe} className="inline-block w-full h-full">
+                <div className="group overflow-hidden cursor-text relative flex items-center justify-between gap-6 rounded-[10px] text-[12px] tracking-wide whitespace-nowrap uppercase font-mono leading-none w-full h-[40px] py-[14px] px-[12px] bg-white dark:bg-[#252525] text-[rgba(0,0,0,0.5)] dark:text-[rgba(255,255,255,0.5)] focus-within:text-asym-dark dark:focus-within:text-asym-light transition-colors">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="YOUR@EMAIL.COM"
+                    required
+                    className="max-[768px]:text-[13px] min-w-0 flex-1 bg-transparent focus:outline-none placeholder:text-[rgba(0,0,0,0.5)] dark:placeholder:text-[rgba(255,255,255,0.5)]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="shrink-0 disabled:cursor-not-allowed disabled:opacity-50 text-inherit hover:opacity-80 transition-opacity"
+                    aria-label="Subscribe"
+                  >
+                    <svg
+                      width="13"
+                      height="12"
+                      viewBox="0 0 13 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-3.5 md:w-4 shrink-0 text-inherit"
+                      aria-hidden
+                    >
+                      <path d="M13 6L0 12L3.31373 6L4.24572e-07 0L13 6Z" fill="currentColor" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </section>

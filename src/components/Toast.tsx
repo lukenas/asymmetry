@@ -46,7 +46,7 @@ export default function Toast({ message, type = "success", isVisible, onClose }:
     >
       <div className="flex items-center gap-3">
         {type === "success" && (
-          <div className="w-2 h-2 rounded-full bg-asym-orange flex-shrink-0" />
+          <div className="w-1.5 h-px bg-current opacity-60 flex-shrink-0" />
         )}
         <p>{message}</p>
       </div>

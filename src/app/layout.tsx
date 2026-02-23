@@ -1,38 +1,23 @@
 import type { Metadata } from "next";
-import { Manrope, IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || 
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+    process.env.NEXT_PUBLIC_BASE_URL ||
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
   ),
   title: "Asymmetry",
-  description: "Insights on applied AI and company building from in the trenches and those pushing the frontier.",
+  description:
+    "Insights on applied AI and company building from in the trenches and those pushing the frontier.",
   icons: {
     icon: "/asym-dark-logo.png",
     apple: "/asym-dark-logo.png",
   },
   openGraph: {
     title: "Asymmetry",
-    description: "Insights on applied AI and company building from in the trenches and those pushing the frontier.",
+    description:
+      "Insights on applied AI and company building from in the trenches and those pushing the frontier.",
     images: [
       {
         url: "/asym-dark-meta.png",
@@ -46,7 +31,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Asymmetry",
-    description: "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
+    description:
+      "Insights on applied AI and product from builders in the trenches and those pushing the frontier.",
     images: ["/asym-dark-meta.png"],
   },
 };
@@ -58,7 +44,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${manrope.variable} ${ibmPlexMono.variable} ${spaceGrotesk.variable} font-sans antialiased bg-asym-light dark:bg-asym-dark dark:text-asym-light`} suppressHydrationWarning>
+      <body
+        className="font-sans antialiased bg-asym-light text-asym-dark dark:bg-asym-dark dark:text-asym-light"
+        suppressHydrationWarning
+      >
         <Header />
         {children}
       </body>

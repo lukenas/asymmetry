@@ -2,44 +2,27 @@ import Footer from "@/components/Footer";
 
 export default function Interviews() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 max-w-5xl mx-auto px-8 pt-32 pb-24 w-full">
-        {/* Page Header */}
-        <div className="pb-8 mb-16">
-          <span className="font-mono text-xs text-asym-orange tracking-widest uppercase">Coming Soon</span>
-          <h1 className="font-display text-5xl sm:text-7xl tracking-wide mt-2">Interviews</h1>
+    <div className="min-h-screen flex flex-col w-full">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24">
+        {/* Page Header — same scale as field-notes: 0.8rem / 1.95–2.44rem / 1.25rem */}
+        <div className="space-y-2 mb-10">
+          <span className="font-mono text-[0.8rem] text-asym-dark/50 dark:text-asym-light/50 tracking-wider uppercase block">
+            COMING SOON
+          </span>
+          <h1 className="font-display text-[1.95rem] md:text-[2.44rem] tracking-tight leading-[1.1]">
+            Interviews
+          </h1>
         </div>
 
         {/* Content */}
-        <div className="max-w-3xl">
-          <div className="relative p-12">
-            {/* Corner borders only */}
-            <div className="absolute top-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute top-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 left-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 right-0 w-16 h-px bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute top-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute top-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 left-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            <div className="absolute bottom-0 right-0 w-px h-16 bg-asym-dark/10 dark:bg-asym-light/10" />
-            
-            <p className="font-display text-2xl sm:text-3xl tracking-wide mb-8 text-asym-dark/80 dark:text-asym-light/80">
-              Conversations with builders pushing the boundaries of AI and product.
-            </p>
-
-            {/* Coming Soon Indicator */}
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-asym-orange animate-pulse" />
-              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide">
-                LAUNCHING SOON
-              </span>
-            </div>
-          </div>
+        <div className="max-w-[28rem]">
+          <p className="font-display text-[1.25rem] leading-snug tracking-wide text-asym-dark/80 dark:text-asym-light/80">
+            Conversations with builders, operators, and investors.
+          </p>
         </div>
-      </main>
+      </div>
 
       <Footer />
     </div>
   );
 }
-

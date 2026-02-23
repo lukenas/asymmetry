@@ -2,13 +2,29 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Suisse Int'l — TTF files in public/fonts/ (from Desktop) */
+@font-face {
+  font-family: "Suisse Int'l";
+  src: local("Suisse Int'l"), url("/fonts/SuisseIntl-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Suisse Int'l Mono";
+  src: local("Suisse Int'l Mono"), url("/fonts/SuisseIntlMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
-  --color-asym-light: #FAFAFA;
-  --color-asym-dark: #2E2D2B;
-  --color-asym-orange: #FD5102;
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: var(--font-ibm-plex-mono);
-  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --color-asym-light: #F2EFEE;
+  --color-asym-dark: #1a1a1a;
+  --font-sans: "Suisse Int'l", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Suisse Int'l Mono", ui-monospace, monospace;
+  --font-display: "Suisse Int'l", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {

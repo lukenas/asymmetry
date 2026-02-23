@@ -22,30 +22,30 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-asym-dark/10 dark:border-asym-light/10">
-      <div className="mx-auto px-8 py-4 flex items-center justify-between">
+    <footer className="w-full">
+      <div className="w-full px-8 py-4 flex items-center justify-between">
         <div className="flex gap-x-2">
           <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50">
             ASYMMETRY
           </span>
           <a className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50" href="https://www.lukenascimento.org">
-            by LUKE NASCIMENTO
+            BY LUKE NASCIMENTO
           </a>
         </div>
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-2 text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-orange transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-dark dark:hover:text-asym-light transition-colors cursor-pointer"
           aria-label="Toggle theme"
         >
           {isDark ? (
             <>
               <MoonIcon width={14} height={14} />
-              <span className="font-mono text-xs">DARK MODE</span>
+              {/* <span className="font-mono text-xs">DARK MODE</span> */}
             </>
           ) : (
             <>
               <SunIcon width={14} height={14} />
-              <span className="font-mono text-xs">LIGHT MODE</span>
+              {/* <span className="font-mono text-xs">LIGHT MODE</span> */}
             </>
           )}
         </button>

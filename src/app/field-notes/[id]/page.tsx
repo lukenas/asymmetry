@@ -302,7 +302,7 @@ export default function PostPage() {
             href={node.href}
             target={node.href?.startsWith('http') ? '_blank' : undefined}
             rel={node.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="text-asym-orange hover:underline font-medium"
+            className="text-asym-dark dark:text-asym-light hover:underline font-medium"
           >
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </a>
@@ -361,19 +361,24 @@ export default function PostPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <main className="flex-1 max-w-4xl mx-auto px-8 pt-32 pb-24 w-full">
-          <div className="animate-pulse">
-            <div className="h-8 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-32 mb-4" />
-            <div className="h-12 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/4 mb-6" />
-            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-24 mb-12" />
-            <div className="space-y-4">
+      <div className="min-h-screen flex flex-col w-full">
+        <div className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 box-border">
+          <div className="mb-8">
+            <div className="h-3 w-24 bg-asym-dark/10 dark:bg-asym-light/10 rounded animate-pulse" />
+          </div>
+          <div className="max-w-sm mx-auto px-4 sm:px-0 animate-pulse">
+            <div className="h-8 sm:h-9 md:h-10 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/4 mt-4 mb-6" />
+            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full mb-6" />
+            <div className="h-3 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-32 mb-8" />
+            <div className="space-y-3 text-base leading-relaxed">
+              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full" />
               <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full" />
               <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-5/6" />
               <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full" />
+              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/4" />
             </div>
           </div>
-        </main>
+        </div>
         <Footer />
       </div>
     );
@@ -382,93 +387,68 @@ export default function PostPage() {
   if (error || !post) {
     return (
       <div className="min-h-screen flex flex-col">
-        <main className="flex-1 max-w-4xl mx-auto px-8 pt-32 pb-24 w-full">
+        <div className="flex-1 max-w-4xl mx-auto px-8 pt-32 pb-24 w-full">
           <div className="text-center py-12">
             <p className="font-sans text-asym-dark/60 dark:text-asym-light/60 mb-6">
               {error || "Post not found"}
             </p>
             <Link
               href="/field-notes"
-              className="font-mono text-xs text-asym-orange tracking-wide hover:underline"
+              className="font-mono text-xs text-asym-dark dark:text-asym-light tracking-wide hover:underline"
             >
               ← BACK TO FIELD NOTES
             </Link>
           </div>
-        </main>
+        </div>
         <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 pt-32 pb-24 w-full">
-        {/* Back Link */}
-        <Link
-          href="/field-notes"
-          className="inline-block mb-8 font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-orange transition-colors tracking-wide"
-        >
-          ← BACK TO FIELD NOTES
-        </Link>
-
-        {/* Post Header */}
-        <article>
-          <div className="mb-8">
-            <span className="font-mono text-xs text-asym-orange tracking-widest uppercase">
-              FIELD NOTES
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-wide mt-4 mb-6">
+    <div className="min-h-screen flex flex-col w-full">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 box-border">
+        {/* Back link — full width of content area */}
+        <div className="mb-8">
+          <Link
+            href="/field-notes"
+            className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-dark dark:hover:text-asym-light transition-colors tracking-wide"
+          >
+            ← FIELD NOTES
+          </Link>
+        </div>
+        {/* Centered column: one block with max-width + margin auto */}
+        <div className="max-w-sm mx-auto px-4 sm:px-0 text-left">
+          <header className="mb-8">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight mt-4 mb-6">
               {post.title}
             </h1>
-            
             {post.subtitle && (
-              <p className="font-display text-xl sm:text-2xl tracking-wide text-asym-dark/70 dark:text-asym-light/70 mb-8 leading-relaxed">
+              <p className="font-display text-base tracking-wide text-asym-dark/70 dark:text-asym-light/70 mb-6 leading-relaxed">
                 {post.subtitle}
               </p>
             )}
-
-            <div className="flex items-center gap-4 mb-8 pb-8 border-b border-asym-dark/10 dark:border-asym-light/10">
-              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide">
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide uppercase">
                 {formatDate(post.publish_date)}
               </span>
               <span className="w-1 h-1 rounded-full bg-asym-dark/20 dark:bg-asym-light/20" />
-              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide">
+              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide uppercase">
                 {getReadTime(post.word_count)}
               </span>
             </div>
-          </div>
-
-          {/* Post Content */}
-          <div className="max-w-none font-sans">
+          </header>
+          <div className="font-sans">
             {contentNodes.length > 0 ? (
               <div className="text-base leading-relaxed text-asym-dark dark:text-asym-light">
                 {contentNodes.map((node, i) => renderContentNode(node, i))}
               </div>
             ) : (
-              <div className="space-y-8">
-                {post.preview_text && (
-                  <div className="font-sans text-base text-asym-dark dark:text-asym-light leading-relaxed">
-                    <p className="text-lg mb-4">{post.preview_text}</p>
-                  </div>
-                )}
-                <div className="border-t border-asym-dark/10 dark:border-asym-light/10 pt-8">
-                  <p className="font-sans text-sm text-asym-dark/60 dark:text-asym-light/60 mb-6">
-                    Full content is available on Beehiiv.
-                  </p>
-                  <a
-                    href={post.web_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-mono text-xs text-asym-orange tracking-wide hover:underline"
-                  >
-                    READ FULL POST ON BEEHIIV →
-                  </a>
-                </div>
-              </div>
+              <div className="space-y-8" />
             )}
           </div>
-        </article>
-      </main>
+        </div>
+      </div>
 
       {/* CTA Section */}
       <NewsletterSubscribe
