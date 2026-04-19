@@ -20,8 +20,8 @@
 }
 
 @theme inline {
-  --color-asym-light: #F2EFEE;
-  --color-asym-dark: #1a1a1a;
+  --color-asym-light: #FFFFF6;
+  --color-asym-dark: #2E2D2B;
   --font-sans: "Suisse Int'l", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "Suisse Int'l Mono", ui-monospace, monospace;
   --font-display: "Suisse Int'l", "Helvetica Neue", Helvetica, Arial, sans-serif;

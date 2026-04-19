@@ -6,11 +6,6 @@ import Footer from "@/components/Footer";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 import Toast from "@/components/Toast";
 
-/**
- * Swiss principles: type scale 1.25 from 16px, 8px spacing grid.
- * Articles in responsive grid: 1 col → 2 → 3 → 4 as screen grows.
- */
-
 interface BeehiivPost {
   id: string;
   title: string;
@@ -61,74 +56,60 @@ export default function FieldNotes() {
 
   return (
     <div className="min-h-screen flex flex-col w-full">
-      <div className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 box-border">
-        <div className="grid grid-cols-12 gap-x-8 gap-y-8">
-          {/* Row 1: overline + title + lead */}
-          <header className="col-span-12 space-y-2 mb-0">
-            <span className="font-mono text-[0.8rem] text-asym-dark/60 dark:text-asym-light/60 tracking-wider uppercase block">
-              Archive
-            </span>
-            <h1 className="font-display text-[1.95rem] md:text-[2.44rem] tracking-tight leading-[1.1]">
-              Field Notes
-            </h1>
-            <p className="font-display text-[1rem] text-asym-dark/50 dark:text-asym-light/50 tracking-wide pt-2">
-              Thoughts on AI, product, & company building.
-            </p>
-          </header>
+      <div className="flex-1 w-full max-w-3xl mx-auto px-6 sm:px-8 pt-32 pb-24">
 
-          {/* Articles: 3-col grid on md+, shrinks to 2 → 1 on smaller screens */}
-          {loading ? (
-            <div className="col-span-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-8">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="space-y-2 min-w-0">
-                  <div className="h-3 w-20 bg-asym-dark/10 dark:bg-asym-light/10 animate-pulse rounded" />
-                  <div className="h-5 bg-asym-dark/10 dark:bg-asym-light/10 animate-pulse rounded w-4/5" />
-                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 animate-pulse rounded w-full" />
+        {/* Page header */}
+        <header className="mb-12">
+          <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl tracking-tight">Field Notes</h1>
+          <p className="font-sans text-sm mt-2 leading-relaxed">Thoughts on AI, product, & company building.</p>
+        </header>
+
+        {/* Post list */}
+        {loading ? (
+          <ul className="list-none p-0 m-0">
+            {[...Array(6)].map((_, i) => (
+              <li key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-10 py-3 animate-pulse">
+                <div className="h-3 w-28 bg-asym-dark/10 dark:bg-asym-light/10 rounded shrink-0" />
+                <div className="flex flex-col gap-2 flex-1">
+                  <div className="h-5 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/5" />
+                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-4/5" />
                 </div>
-              ))}
-            </div>
-          ) : posts.length > 0 ? (
-            <ul className="col-span-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-8 list-none p-0 m-0">
-              {posts.map((post) => (
-                <li key={post.id} className="min-w-0">
-                  <Link
-                    href={`/field-notes/${post.id}`}
-                    className="block space-y-2 py-2 pl-4 -ml-4 transition-colors group"
-                  >
-                    <p className="font-mono text-[0.8rem] text-asym-dark/50 dark:text-asym-light/50 tracking-wider uppercase group-hover:text-asym-dark dark:group-hover:text-asym-light transition-colors">
-                      {formatDate(post.publish_date)}
-                    </p>
-                    <h2 className="font-display text-[1.25rem] tracking-tight leading-[1.2] group-hover:text-asym-dark dark:group-hover:text-asym-light transition-colors">
-                      {post.title}
-                    </h2>
-                    {post.subtitle && (
-                      <p className="font-sans text-[1rem] text-asym-dark/60 dark:text-asym-light/60 leading-[1.5] line-clamp-2">
-                        {post.subtitle}
-                      </p>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="col-span-12 py-12">
-              <p className="font-sans text-[1rem] text-asym-dark/50 dark:text-asym-light/50">
-                No posts available at the moment.
-              </p>
-            </div>
-          )}
-        </div>
+              </li>
+            ))}
+          </ul>
+        ) : posts.length > 0 ? (
+          <ul className="list-none p-0 m-0">
+            {posts.map((post) => (
+              <li key={post.id}>
+                <Link
+                  href={`/field-notes/${post.id}`}
+                  className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-10 py-3"
+                >
+                  <span className="font-mono text-xs tracking-wider uppercase text-asym-dark dark:text-asym-light shrink-0 sm:w-32">
+                    {formatDate(post.publish_date)}
+                  </span>
+                  <h2 className="font-sans text-lg leading-snug min-w-0 group-hover:underline">
+                    {post.title}
+                  </h2>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="font-sans text-sm text-asym-dark dark:text-asym-light pt-6">
+            No posts available at the moment.
+          </p>
+        )}
       </div>
 
-      {/* CTA Section */}
       <NewsletterSubscribe
         onSuccess={(message) => setToast({ message, type: "success" })}
         onError={(message) => setToast({ message, type: "error" })}
+        containerClassName="max-w-3xl mx-auto px-6 sm:px-8"
       />
 
       <Footer />
 
-      {/* Toast Notification */}
       {toast && (
         <Toast
           message={toast.message}

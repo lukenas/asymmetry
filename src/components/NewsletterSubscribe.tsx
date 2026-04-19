@@ -5,9 +5,10 @@ import { useState } from "react";
 interface NewsletterSubscribeProps {
   onSuccess?: (message: string) => void;
   onError?: (message: string) => void;
+  containerClassName?: string;
 }
 
-export default function NewsletterSubscribe({ onSuccess, onError }: NewsletterSubscribeProps) {
+export default function NewsletterSubscribe({ onSuccess, onError, containerClassName = "max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16" }: NewsletterSubscribeProps) {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -42,27 +43,27 @@ export default function NewsletterSubscribe({ onSuccess, onError }: NewsletterSu
 
   return (
     <section className="py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className={containerClassName}>
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
           <div>
-            <p className="font-display text-2xl sm:text-3xl tracking-tight text-asym-dark dark:text-asym-light">
+            <p className="font-sans text-xl tracking-tight text-asym-dark dark:text-asym-light">
               Follow Along
             </p>
-            <p className="font-sans text-sm text-asym-dark/50 dark:text-asym-light/50 mt-3 max-w-md">
+            <p className="font-sans text-sm text-asym-dark dark:text-asym-light mt-3 max-w-md">
               Occasional notes. No schedule.
             </p>
           </div>
           <div className="relative">
             <div className="w-full h-[40px] min-w-[194px]">
               <form onSubmit={handleSubscribe} className="inline-block w-full h-full">
-                <div className="group overflow-hidden cursor-text relative flex items-center justify-between gap-6 rounded-[10px] text-[12px] tracking-wide whitespace-nowrap uppercase font-mono leading-none w-full h-[40px] py-[14px] px-[12px] bg-white dark:bg-[#252525] text-[rgba(0,0,0,0.5)] dark:text-[rgba(255,255,255,0.5)] focus-within:text-asym-dark dark:focus-within:text-asym-light transition-colors">
+                <div className="group overflow-hidden cursor-text relative flex items-center justify-between gap-6 text-xs tracking-wide whitespace-nowrap uppercase font-mono leading-none w-full h-[40px] py-[14px] px-[12px] bg-white dark:bg-[#252525] text-[rgba(0,0,0,0.5)] dark:text-[rgba(255,255,255,0.5)] focus-within:text-asym-dark dark:focus-within:text-asym-light transition-colors">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="YOUR@EMAIL.COM"
                     required
-                    className="max-[768px]:text-[13px] min-w-0 flex-1 bg-transparent focus:outline-none placeholder:text-[rgba(0,0,0,0.5)] dark:placeholder:text-[rgba(255,255,255,0.5)]"
+                    className="max-[768px]:text-sm min-w-0 flex-1 bg-transparent focus:outline-none placeholder:text-[rgba(0,0,0,0.5)] dark:placeholder:text-[rgba(255,255,255,0.5)]"
                   />
                   <button
                     type="submit"

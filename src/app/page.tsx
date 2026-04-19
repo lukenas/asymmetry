@@ -147,7 +147,7 @@ export default function Home() {
         <button
           type="button"
           onClick={toggleTheme}
-          className="font-display text-4xl sm:text-4xl md:text-4xl tracking-wider transition-opacity duration-100 cursor-pointer bg-transparent border-none text-inherit p-0"
+          className="font-sans text-4xl tracking-tight transition-opacity duration-100 cursor-pointer bg-transparent border-none text-inherit p-0"
           style={{ opacity: scrollOpacity }}
           aria-label="Toggle light and dark mode"
         >
@@ -160,13 +160,13 @@ export default function Home() {
           style={{ opacity: scrollOpacity }}
         >
           <div className="mx-auto px-8 flex flex-col sm:flex-row items-center sm:items-end justify-between relative gap-8 sm:gap-0">
-            <div className="hidden sm:block font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80">
+            <div className="hidden sm:block font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light">
               <div>{currentDate}</div>
               <div>{currentTime} EST</div>
             </div>
 
             <div className="flex flex-col items-center sm:items-end gap-0 max-w-xs text-center sm:text-right">
-              <p className="font-display text-sm tracking-wide text-asym-dark/80 dark:text-asym-light/80 leading-relaxed">
+              <p className="font-sans text-sm text-asym-dark dark:text-asym-light leading-relaxed">
                 Notes on applied AI and company building.
               </p>
             </div>

@@ -255,25 +255,25 @@ export default function PostPage() {
         );
       case 'h1':
         return (
-          <h1 key={key} className="font-display text-4xl mt-16 mb-8 tracking-wide font-bold text-asym-dark dark:text-asym-light">
+          <h1 key={key} className="font-sans text-4xl mt-16 mb-8 tracking-tight font-bold text-asym-dark dark:text-asym-light">
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </h1>
         );
       case 'h2':
         return (
-          <h2 key={key} className="font-display text-3xl mt-14 mb-6 tracking-wide font-semibold text-asym-dark dark:text-asym-light">
+          <h2 key={key} className="font-sans text-3xl mt-14 mb-6 tracking-tight font-semibold text-asym-dark dark:text-asym-light">
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </h2>
         );
       case 'h3':
         return (
-          <h3 key={key} className="font-display text-2xl mt-12 mb-5 tracking-wide font-semibold text-asym-dark dark:text-asym-light">
+          <h3 key={key} className="font-sans text-2xl mt-12 mb-5 tracking-tight font-semibold text-asym-dark dark:text-asym-light">
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </h3>
         );
       case 'h4':
         return (
-          <h4 key={key} className="font-display text-xl mt-10 mb-4 tracking-wide font-semibold text-asym-dark dark:text-asym-light">
+          <h4 key={key} className="font-sans text-xl mt-10 mb-4 font-semibold text-asym-dark dark:text-asym-light">
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </h4>
         );
@@ -321,7 +321,7 @@ export default function PostPage() {
         );
       case 'blockquote':
         return (
-          <blockquote key={key} className="border-l-4 border-asym-dark/20 dark:border-asym-light/20 pl-6 italic my-6 text-base leading-relaxed text-asym-dark/80 dark:text-asym-light/80">
+          <blockquote key={key} className="border-l-4 border-asym-dark/20 dark:border-asym-light/20 pl-6 italic my-6 text-base leading-relaxed text-asym-dark dark:text-asym-light">
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </blockquote>
         );
@@ -362,21 +362,17 @@ export default function PostPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col w-full">
-        <div className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 box-border">
-          <div className="mb-8">
-            <div className="h-3 w-24 bg-asym-dark/10 dark:bg-asym-light/10 rounded animate-pulse" />
-          </div>
-          <div className="max-w-sm mx-auto px-4 sm:px-0 animate-pulse">
-            <div className="h-8 sm:h-9 md:h-10 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/4 mt-4 mb-6" />
-            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full mb-6" />
-            <div className="h-3 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-32 mb-8" />
-            <div className="space-y-3 text-base leading-relaxed">
-              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full" />
-              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full" />
-              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-5/6" />
-              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-full" />
-              <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/4" />
-            </div>
+        <div className="flex-1 w-full max-w-2xl mx-auto px-6 sm:px-8 pt-32 pb-24 animate-pulse">
+          <div className="h-3 w-24 bg-asym-dark/10 dark:bg-asym-light/10 mb-10" />
+          <div className="h-9 bg-asym-dark/10 dark:bg-asym-light/10 w-3/4 mb-4" />
+          <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-full mb-8" />
+          <div className="h-3 bg-asym-dark/10 dark:bg-asym-light/10 w-32 mb-12" />
+          <div className="space-y-3">
+            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-full" />
+            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-full" />
+            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-5/6" />
+            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-full" />
+            <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-3/4" />
           </div>
         </div>
         <Footer />
@@ -389,7 +385,7 @@ export default function PostPage() {
       <div className="min-h-screen flex flex-col">
         <div className="flex-1 max-w-4xl mx-auto px-8 pt-32 pb-24 w-full">
           <div className="text-center py-12">
-            <p className="font-sans text-asym-dark/60 dark:text-asym-light/60 mb-6">
+            <p className="font-sans text-asym-dark dark:text-asym-light mb-6">
               {error || "Post not found"}
             </p>
             <Link
@@ -407,46 +403,36 @@ export default function PostPage() {
 
   return (
     <div className="min-h-screen flex flex-col w-full">
-      <div className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 box-border">
-        {/* Back link — full width of content area */}
-        <div className="mb-8">
-          <Link
-            href="/field-notes"
-            className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-dark dark:hover:text-asym-light transition-colors tracking-wide"
-          >
-            ← FIELD NOTES
-          </Link>
-        </div>
-        {/* Centered column: one block with max-width + margin auto */}
-        <div className="max-w-sm mx-auto px-4 sm:px-0 text-left">
-          <header className="mb-8">
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight mt-4 mb-6">
-              {post.title}
-            </h1>
-            {post.subtitle && (
-              <p className="font-display text-base tracking-wide text-asym-dark/70 dark:text-asym-light/70 mb-6 leading-relaxed">
-                {post.subtitle}
-              </p>
-            )}
-            <div className="flex items-center gap-4">
-              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide uppercase">
-                {formatDate(post.publish_date)}
-              </span>
-              <span className="w-1 h-1 rounded-full bg-asym-dark/20 dark:bg-asym-light/20" />
-              <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50 tracking-wide uppercase">
-                {getReadTime(post.word_count)}
-              </span>
-            </div>
-          </header>
-          <div className="font-sans">
-            {contentNodes.length > 0 ? (
-              <div className="text-base leading-relaxed text-asym-dark dark:text-asym-light">
-                {contentNodes.map((node, i) => renderContentNode(node, i))}
-              </div>
-            ) : (
-              <div className="space-y-8" />
-            )}
+      <div className="flex-1 w-full max-w-2xl mx-auto px-6 sm:px-8 pt-32 pb-24">
+        <Link
+          href="/field-notes"
+          className="font-mono text-xs text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity tracking-wider uppercase"
+        >
+          Field Notes
+        </Link>
+
+        <header className="mt-10 mb-8">
+          <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl tracking-tight mb-4">
+            {post.title}
+          </h1>
+          {post.subtitle && (
+            <p className="font-sans text-base text-asym-dark dark:text-asym-light mb-6 leading-relaxed">
+              {post.subtitle}
+            </p>
+          )}
+          <div className="font-mono text-xs tracking-wider uppercase">
+            {formatDate(post.publish_date)} / {getReadTime(post.word_count)}
           </div>
+        </header>
+
+        <div className="font-sans">
+          {contentNodes.length > 0 ? (
+            <div className="text-base leading-relaxed text-asym-dark dark:text-asym-light">
+              {contentNodes.map((node, i) => renderContentNode(node, i))}
+            </div>
+          ) : (
+            <div className="space-y-8" />
+          )}
         </div>
       </div>
 
@@ -454,6 +440,7 @@ export default function PostPage() {
       <NewsletterSubscribe
         onSuccess={(message) => setToast({ message, type: "success" })}
         onError={(message) => setToast({ message, type: "error" })}
+        containerClassName="max-w-2xl mx-auto px-6 sm:px-8"
       />
 
       <Footer />

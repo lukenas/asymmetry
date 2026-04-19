@@ -63,7 +63,7 @@ export default function Header() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-asym-light/90 dark:bg-asym-dark/90 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-asym-light dark:bg-asym-dark">
       <div className="relative w-full px-8 py-6 flex items-center justify-between">
         {/* Left - Logo */}
         <Link href="/">
@@ -91,7 +91,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-dark dark:hover:text-asym-light transition-colors"
+              className="font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity"
             >
               {item.label}
             </Link>
@@ -99,12 +99,12 @@ export default function Header() {
         </nav>
 
         {/* Right - Location on desktop, hamburger on mobile */}
-        <div ref={mobileMenuRef} className="font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80 text-right flex items-center relative">
+        <div ref={mobileMenuRef} className="font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light text-right flex items-center relative">
           <div className="hidden sm:block">NEW YORK, NEW YORK</div>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className={`sm:hidden p-2 -m-2 rounded-md touch-manipulation text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-dark dark:hover:text-asym-light transition-colors ${mobileMenuOpen ? "bg-asym-dark/5 dark:bg-asym-light/5" : ""}`}
+            className={`sm:hidden p-2 -m-2 touch-manipulation text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity ${mobileMenuOpen ? "opacity-70" : ""}`}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
@@ -114,7 +114,7 @@ export default function Header() {
           {/* Mobile menu popout — same rounding/colors as CTA input */}
           {mobileMenuOpen && (
           <div
-            className="sm:hidden text-left absolute -right-2 top-full mt-4 z-[100] rounded-[10px] bg-asym-dark/5 dark:bg-asym-light/5 text-asym-dark dark:text-asym-light py-4 px-5 min-w-[100px]"
+            className="sm:hidden text-left absolute -right-2 top-full mt-2 z-[100] bg-asym-light dark:bg-asym-dark border border-asym-dark/10 dark:border-asym-light/10 text-asym-dark dark:text-asym-light py-4 px-5 min-w-[100px]"
             role="dialog"
             aria-label="Menu"
           >
@@ -124,7 +124,7 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-mono text-xs tracking-wide text-asym-dark/80 dark:text-asym-light/80 hover:text-asym-dark dark:hover:text-asym-light transition-colors"
+                  className="font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity"
                 >
                   {item.label}
                 </Link>

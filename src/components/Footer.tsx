@@ -25,16 +25,16 @@ export default function Footer() {
     <footer className="w-full">
       <div className="w-full px-8 py-4 flex items-center justify-between">
         <div className="flex gap-x-2">
-          <span className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50">
-            ASYMMETRY
+          <span className="font-mono text-xs text-asym-dark dark:text-asym-light">
+            ASYMMETRY BY
           </span>
-          <a className="font-mono text-xs text-asym-dark/50 dark:text-asym-light/50" href="https://www.lukenascimento.org">
-            BY LUKE NASCIMENTO
+          <a className="font-mono underline text-xs text-asym-dark dark:text-asym-light" href="https://www.lukenascimento.org">
+            LUKE NASCIMENTO
           </a>
         </div>
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-2 text-asym-dark/50 dark:text-asym-light/50 hover:text-asym-dark dark:hover:text-asym-light transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-asym-dark dark:text-asym-light hover:opacity-60 transition-opacity cursor-pointer"
           aria-label="Toggle theme"
         >
           {isDark ? (
