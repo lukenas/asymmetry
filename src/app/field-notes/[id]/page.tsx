@@ -91,11 +91,6 @@ export default function PostPage() {
     });
   };
 
-  const getReadTime = (wordCount?: number) => {
-    if (!wordCount) return "5 min read";
-    const minutes = Math.ceil(wordCount / 200);
-    return `${minutes} min read`;
-  };
 
   const extractContent = (html: string): ContentNode[] => {
     if (typeof window === 'undefined') return [];
@@ -421,7 +416,7 @@ export default function PostPage() {
             </p>
           )}
           <div className="font-mono text-xs tracking-wider uppercase">
-            {formatDate(post.publish_date)} / {getReadTime(post.word_count)}
+            {formatDate(post.publish_date)}
           </div>
         </header>
 
