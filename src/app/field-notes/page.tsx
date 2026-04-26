@@ -68,10 +68,10 @@ export default function FieldNotes() {
           <ul className="list-none p-0 m-0">
             {[...Array(6)].map((_, i) => (
               <li key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-10 py-3 animate-pulse">
-                <div className="h-3 w-28 bg-asym-dark/10 dark:bg-asym-light/10 rounded shrink-0" />
+                <div className="h-3 w-28 bg-asym-dark/10 dark:bg-asym-light/10 shrink-0" />
                 <div className="flex flex-col gap-2 flex-1">
-                  <div className="h-5 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-3/5" />
-                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 rounded w-4/5" />
+                  <div className="h-5 bg-asym-dark/10 dark:bg-asym-light/10 w-3/5" />
+                  <div className="h-4 bg-asym-dark/10 dark:bg-asym-light/10 w-4/5" />
                 </div>
               </li>
             ))}
