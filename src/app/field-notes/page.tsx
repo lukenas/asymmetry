@@ -60,7 +60,6 @@ export default function FieldNotes() {
         {/* Page header */}
         <header className="mb-12">
           <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl tracking-tight">Field Notes</h1>
-          <p className="font-sans text-sm mt-2 leading-relaxed">Thoughts on AI, product, & company building.</p>
         </header>
 
         {/* Post list */}
