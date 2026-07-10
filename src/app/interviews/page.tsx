@@ -11,7 +11,7 @@ export default function Interviews() {
           </p>
         </header>
 
-        <p className="font-mono text-xs tracking-wider uppercase mt-8">
+        <p className="font-sans text-xs tracking-wider uppercase mt-8">
           Coming Soon
         </p>
       </div>

@@ -11,19 +11,10 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Suisse Int'l Mono";
-  src: local("Suisse Int'l Mono"), url("/fonts/SuisseIntlMono-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme inline {
   --color-asym-light: #FFFFF6;
   --color-asym-dark: #2E2D2B;
   --font-sans: "Suisse Int'l", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "Suisse Int'l Mono", ui-monospace, monospace;
   --font-display: "Suisse Int'l", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 

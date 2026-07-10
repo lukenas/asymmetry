@@ -25,10 +25,10 @@ export default function Footer() {
     <footer className="w-full">
       <div className="w-full px-8 py-4 flex items-center justify-between">
         <div className="flex gap-x-2">
-          <span className="font-mono text-xs text-asym-dark dark:text-asym-light">
+          <span className="font-sans text-xs text-asym-dark dark:text-asym-light">
             ASYMMETRY BY
           </span>
-          <a className="font-mono underline text-xs text-asym-dark dark:text-asym-light" href="https://www.lukenascimento.org">
+          <a className="font-sans underline text-xs text-asym-dark dark:text-asym-light" href="https://www.lukenascimento.org">
             LUKE NASCIMENTO
           </a>
         </div>
@@ -40,12 +40,12 @@ export default function Footer() {
           {isDark ? (
             <>
               <MoonIcon width={14} height={14} />
-              {/* <span className="font-mono text-xs">DARK MODE</span> */}
+              {/* <span className="font-sans text-xs">DARK MODE</span> */}
             </>
           ) : (
             <>
               <SunIcon width={14} height={14} />
-              {/* <span className="font-mono text-xs">LIGHT MODE</span> */}
+              {/* <span className="font-sans text-xs">LIGHT MODE</span> */}
             </>
           )}
         </button>

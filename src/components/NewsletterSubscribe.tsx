@@ -56,7 +56,7 @@ export default function NewsletterSubscribe({ onSuccess, onError, containerClass
           <div className="relative">
             <div className="w-full h-[40px] min-w-[194px]">
               <form onSubmit={handleSubscribe} className="inline-block w-full h-full">
-                <div className="group overflow-hidden cursor-text relative flex items-center justify-between gap-6 text-xs tracking-wide whitespace-nowrap uppercase font-mono leading-none w-full h-[40px] py-[14px] px-[12px] bg-[#EFEFE6] dark:bg-[#252525] text-[rgba(0,0,0,0.5)] dark:text-[rgba(255,255,255,0.5)] focus-within:text-asym-dark dark:focus-within:text-asym-light transition-colors">
+                <div className="group overflow-hidden cursor-text relative flex items-center justify-between gap-6 text-xs tracking-wide whitespace-nowrap uppercase font-sans leading-none w-full h-[40px] py-[14px] px-[12px] bg-[#EFEFE6] dark:bg-[#252525] text-[rgba(0,0,0,0.5)] dark:text-[rgba(255,255,255,0.5)] focus-within:text-asym-dark dark:focus-within:text-asym-light transition-colors">
                   <input
                     type="email"
                     value={email}

@@ -91,7 +91,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity"
+              className="font-sans text-xs tracking-wide text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity"
             >
               {item.label}
             </Link>
@@ -99,7 +99,7 @@ export default function Header() {
         </nav>
 
         {/* Right - Location on desktop, hamburger on mobile */}
-        <div ref={mobileMenuRef} className="font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light text-right flex items-center relative">
+        <div ref={mobileMenuRef} className="font-sans text-xs tracking-wide text-asym-dark dark:text-asym-light text-right flex items-center relative">
           <div className="hidden sm:block">NEW YORK, NEW YORK</div>
           <button
             type="button"
@@ -124,7 +124,7 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity"
+                  className="font-sans text-xs tracking-wide text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity"
                 >
                   {item.label}
                 </Link>
