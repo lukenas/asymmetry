@@ -83,7 +83,7 @@ export default function FieldNotes() {
                   href={`/field-notes/${post.id}`}
                   className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-10 py-3"
                 >
-                  <span className="font-mono text-xs tracking-wider uppercase text-asym-dark dark:text-asym-light shrink-0 sm:w-32">
+                  <span className="text-xs tracking-wider uppercase text-asym-dark dark:text-asym-light shrink-0 sm:w-32">
                     {formatDate(post.publish_date)}
                   </span>
                   <h2 className="font-sans text-lg leading-snug min-w-0 group-hover:underline">

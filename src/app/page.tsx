@@ -160,7 +160,7 @@ export default function Home() {
           style={{ opacity: scrollOpacity }}
         >
           <div className="mx-auto px-8 flex flex-col sm:flex-row items-center sm:items-end justify-between relative gap-8 sm:gap-0">
-            <div className="hidden sm:block font-mono text-xs tracking-wide text-asym-dark dark:text-asym-light">
+            <div className="hidden sm:block text-xs tracking-wide text-asym-dark dark:text-asym-light">
               <div>{currentDate}</div>
               <div>{currentTime} EST</div>
             </div>

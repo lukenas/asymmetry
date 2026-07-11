@@ -38,7 +38,7 @@ export default function Toast({ message, type = "success", isVisible, onClose }:
 
   return (
     <div
-      className={`fixed bottom-8 right-8 z-50 px-6 py-4 bg-asym-dark dark:bg-asym-light text-asym-light dark:text-asym-dark font-mono text-sm tracking-wide shadow-lg border border-asym-dark/20 dark:border-asym-light/20 transform transition-all duration-300 ease-out ${
+      className={`fixed bottom-8 right-8 z-50 px-6 py-4 bg-asym-dark dark:bg-asym-light text-asym-light dark:text-asym-dark font-sans text-sm tracking-wide shadow-lg border border-asym-dark/20 dark:border-asym-light/20 transform transition-all duration-300 ease-out ${
         isAnimating ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
       } ${
         type === "error" ? "border-red-500/50" : ""

@@ -322,13 +322,13 @@ export default function PostPage() {
         );
       case 'code':
         return (
-          <code key={key} className="font-mono text-sm bg-asym-dark/5 dark:bg-asym-light/5 px-2 py-1 rounded">
+          <code key={key} className="font-sans text-sm bg-asym-dark/5 dark:bg-asym-light/5 px-2 py-1 rounded">
             {node.text}
           </code>
         );
       case 'pre':
         return (
-          <pre key={key} className="bg-asym-dark/5 dark:bg-asym-light/5 p-6 rounded-lg overflow-x-auto my-8 font-mono text-sm">
+          <pre key={key} className="bg-asym-dark/5 dark:bg-asym-light/5 p-6 rounded-lg overflow-x-auto my-8 font-sans text-sm">
             {node.children?.map((child, i) => renderContentNode(child, i))}
           </pre>
         );
@@ -385,7 +385,7 @@ export default function PostPage() {
             </p>
             <Link
               href="/field-notes"
-              className="font-mono text-xs text-asym-dark dark:text-asym-light tracking-wide hover:underline"
+              className="font-sans text-xs text-asym-dark dark:text-asym-light tracking-wide hover:underline"
             >
               ← BACK TO FIELD NOTES
             </Link>
@@ -401,7 +401,7 @@ export default function PostPage() {
       <div className="flex-1 w-full max-w-2xl mx-auto px-6 sm:px-8 pt-32 pb-24">
         <Link
           href="/field-notes"
-          className="font-mono text-xs text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity tracking-wider uppercase"
+          className="font-sans text-xs text-asym-dark dark:text-asym-light hover:opacity-70 transition-opacity tracking-wider uppercase"
         >
           Field Notes
         </Link>
@@ -415,7 +415,7 @@ export default function PostPage() {
               {post.subtitle}
             </p>
           )}
-          <div className="font-mono text-xs tracking-wider uppercase">
+          <div className="font-sans text-xs tracking-wider uppercase">
             {formatDate(post.publish_date)}
           </div>
         </header>
